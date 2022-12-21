@@ -20,11 +20,11 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    @TestAnnotation("6")
-    private String testField = "testField";
+    @TestAnnotation(value = "6")
+    public String testField = "testField";
 
     @TestAnnotation()
-    private String testField2 = "testField";
+    public String testField2 = "testField";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "onCreate: " + MyClass.test());
 
         //通过注解生成View；
-        getAllAnnotationView();
+//        getAllAnnotationView();
+
+        ViewBindUtil.bind(this);
 
         Log.d("gzb", "testField : " + testField);
         Log.d("gzb", "testField2: " + testField2);
