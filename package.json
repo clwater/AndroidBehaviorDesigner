@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "commitizen": "^4.2.6",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.0.0"
+  },
+  "script": {
+    "commit": "git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  }
+}
