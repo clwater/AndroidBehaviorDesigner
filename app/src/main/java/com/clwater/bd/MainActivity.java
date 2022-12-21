@@ -2,10 +2,12 @@ package com.clwater.bd;
 
 import android.os.Bundle;
 
+import com.clwater.bd.lib.MyClass;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
+        Log.d("MainActivity", "onCreate: " + MyClass.test());
 
     }
 
