@@ -1,2 +1,4 @@
 rootProject.name = "AndroidBehaviorDesigner"
 include ':app'
+include ':lib-processor'
+include ':lib'
