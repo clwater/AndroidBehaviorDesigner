@@ -39,7 +39,7 @@ public class BDProcessor extends AbstractProcessor {
     private Messager mMessager;
     private Filer mFiler;//文件类
 
-    private static final Map<TypeElement, List<String>> testFields = new HashMap<>();
+    private static final Map<TypeElement, HashMap<String, String>> testFields = new HashMap<>();
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
@@ -94,14 +94,12 @@ public class BDProcessor extends AbstractProcessor {
             ClassName className = ClassName.get(typeElement);//获取参数类型
             PackageElement packageElement = (PackageElement) typeElement.getEnclosingElement();//获得外部对象
             String packageName = packageElement.getQualifiedName().toString();//获得包名
-            List<String> viewInfos = testFields.get(typeElement);
+            HashMap<String, String> viewInfos = testFields.get(typeElement);
             CodeBlock.Builder builder = CodeBlock.builder();//代码块对象
 //            builder.add("        Log.d(\"gzb\", \"6\");\n");
-//            for (String viewInfo : viewInfos) {
-//                //生成代码
-//                builder.add(paramName + "." + viewInfo + " = " + paramName + "" + viewInfo + ";\n");
-//
-//            }
+            for (Map.Entry<String, String> entry : viewInfos.entrySet()) {
+                builder.add(paramName + "." + entry.getKey() + " = \"" + entry.getValue() + "\";\n");
+            }
 
             ClassName list = ClassName.get("android.util", "Log");
 
@@ -135,13 +133,14 @@ public class BDProcessor extends AbstractProcessor {
 
     private void genInfo(TypeElement typeElement, VariableElement variableElement){
         BDTestAnnotation annotation = variableElement.getAnnotation(BDTestAnnotation.class);
-        List<String> viewInfos;
+        HashMap<String, String> viewInfos;
+        String viewName = variableElement.getSimpleName().toString();
         if (testFields.get(typeElement) != null) {
             viewInfos = testFields.get(typeElement);
         } else {
-            viewInfos = new ArrayList<>();
+            viewInfos = new HashMap<>();
         }
-        viewInfos.add(annotation.value());
+        viewInfos.put(viewName, annotation.value());
         testFields.put(typeElement, viewInfos);
     }
 }
